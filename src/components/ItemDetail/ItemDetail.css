@@ -1,0 +1,33 @@
+.contenedorItem {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .productoImagenContainer {
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 10px; /* Ajusta el valor según tu preferencia */
+  }
+  
+  .productoImagen {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .detalleProducto {
+    margin: 10px; /* Ajusta el valor según tu preferencia */
+  }
+  
+  .tituloProducto {
+    font-size: 20px;
+  }
+  
+  .precioProducto {
+    font-size: 16px;
+  }
+  

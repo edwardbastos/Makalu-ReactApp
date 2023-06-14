@@ -1,0 +1,22 @@
+/* header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+li {
+    display: inline-block;
+    margin: 1rem;
+    cursor: pointer;
+} */
+
+.logo-header {
+    width: 25rem;
+}
+
+.nav-link-bold {
+    font-weight: bold;
+    color: #6D8192;
+  }
+  
