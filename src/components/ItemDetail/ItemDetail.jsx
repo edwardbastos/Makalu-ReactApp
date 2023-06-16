@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ItemDetail.css';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Form } from 'react-bootstrap';
 
-const ItemDetail = ({ id, nombre, precio, img }) => {
+const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
+  const [cantidad, setCantidad] = useState(1); // Estado local para la cantidad del producto
+
+  const handleCantidadChange = (event) => {
+    setCantidad(Number(event.target.value));
+  };
+
   return (
     <Card className="contenedorItem">
       <div className="row">
@@ -16,12 +22,23 @@ const ItemDetail = ({ id, nombre, precio, img }) => {
         <div className="col-md-8">
           <Card.Body className="detalleProducto">
             <Card.Title className="tituloProducto">{nombre}</Card.Title>
-            <Card.Text className="precioProducto">Precio: {precio}</Card.Text>
-            <Card.Text>ID: {id}</Card.Text>
-            <Card.Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odio eveniet facere maiores quo tempore quisquam! Consectetur dolores quos ducimus maiores quam quae, eveniet voluptatibus beatae, nemo cumque tempore modi?
-            </Card.Text>
-            <Button variant="primary">Agregar al carrito</Button>
+            <div className="precioIdContainer">
+              <Card.Text className="precioProducto">Precio: {precio}</Card.Text>
+              <Card.Text>ID: {id}</Card.Text>
+            </div>
+            <Card.Text className="descripcionProducto">{descripcion}</Card.Text>
+            <div className="inputCantidad">
+              <Form.Group controlId="cantidad">
+                <Form.Label>Cantidad:</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={cantidad}
+                  min="1"
+                  onChange={handleCantidadChange}
+                />
+              </Form.Group>
+            </div>
+            <Button variant="primary" className="btnAgregarCarrito">Agregar al carrito</Button>
           </Card.Body>
         </div>
       </div>
