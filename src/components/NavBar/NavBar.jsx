@@ -62,7 +62,9 @@ const NavBar = () => {
               Contacto
             </Nav.Link>
             <li className="nav-item mx-5">
-              <CartWidget />
+              <Link to={"/carrito"}>
+                <CartWidget />
+              </Link>
             </li>
           </Nav>
         </Navbar.Collapse>
@@ -71,4 +73,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default NavBar;

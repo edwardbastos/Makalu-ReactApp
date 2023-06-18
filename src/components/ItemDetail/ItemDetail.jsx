@@ -5,13 +5,23 @@ import { CartContext } from '../CartContext/CartContext';
 
 const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
   const [cantidad, setCantidad] = useState(1); // Estado local para la cantidad del producto
-  const { setTotalQuantity } = useContext(CartContext);
+  const { setTotalQuantity, setCartItems } = useContext(CartContext);
 
   const handleCantidadChange = (event) => {
     setCantidad(Number(event.target.value));
   };
 
   const handleAgregarCarrito = () => {
+    const nuevoProducto = {
+      id: id,
+      nombre: nombre,
+      precio: precio,
+      img: img,
+      descripcion: descripcion,
+      cantidad: cantidad,
+    };
+
+    setCartItems((prevCartItems) => [...prevCartItems, nuevoProducto]);
     setTotalQuantity((prevTotalQuantity) => prevTotalQuantity + cantidad);
   };
 
@@ -52,6 +62,6 @@ const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
       </div>
     </Card>
   );
-}
+};
 
 export default ItemDetail;
