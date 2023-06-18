@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './ItemDetail.css';
 import { Card, Button, Form } from 'react-bootstrap';
+import { CartContext } from '../CartContext/CartContext';
 
 const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
   const [cantidad, setCantidad] = useState(1); // Estado local para la cantidad del producto
+  const { setTotalQuantity } = useContext(CartContext);
 
   const handleCantidadChange = (event) => {
     setCantidad(Number(event.target.value));
+  };
+
+  const handleAgregarCarrito = () => {
+    setTotalQuantity((prevTotalQuantity) => prevTotalQuantity + cantidad);
   };
 
   return (
@@ -38,7 +44,9 @@ const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
                 />
               </Form.Group>
             </div>
-            <Button variant="primary" className="btnAgregarCarrito">Agregar al carrito</Button>
+            <Button variant="primary" className="btnAgregarCarrito" onClick={handleAgregarCarrito}>
+              Agregar al carrito
+            </Button>
           </Card.Body>
         </div>
       </div>
