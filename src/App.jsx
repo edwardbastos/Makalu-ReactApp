@@ -1,18 +1,18 @@
 import React from 'react';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
-import Cart from './components/Cart/Cart';
+import Cart from './components/CheckOut/CheckOut';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { CartProvider } from './components/CartContext/CartContext';
+import { CheckOutProvider } from './components/CheckOutContainer/CheckOutContainer';
 
 
 function App() {
   return (
     <Router>
-      <CartProvider>
+      <CheckOutProvider>
       <NavBar/>
       <Routes>
         <Route path="/" element={<ItemListContainer />} />
@@ -20,7 +20,7 @@ function App() {
         <Route path="/item/:idItem" element={<ItemDetailContainer />} />
         <Route exact path="/carrito" element={<Cart />} />
       </Routes>
-      </CartProvider>
+      </CheckOutProvider>
     </Router>
   );
 }

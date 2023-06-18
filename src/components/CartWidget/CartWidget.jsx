@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import "./CartWidget.css";
 import { Image, Badge } from 'react-bootstrap';
-import { CartContext } from '../CartContext/CartContext';
+import { CheckOutContainer } from '../CheckOutContainer/CheckOutContainer';
 
 const CartWidget = () => {
-  const { totalQuantity } = useContext(CartContext);
+  const { totalQuantity } = useContext(CheckOutContainer);
   const imgCarrito = process.env.PUBLIC_URL + '/assets/img/carrito.png';
 
   return (

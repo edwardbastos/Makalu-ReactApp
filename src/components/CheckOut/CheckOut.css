@@ -1,0 +1,41 @@
+.checkout-container {
+  margin-top: 20px;
+}
+
+.checkout-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.checkout-table th,
+.checkout-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+.checkout-table th {
+  background-color: #f0f0f0;
+}
+
+.checkout-table td button {
+  margin: 0 5px;
+}
+
+.checkout-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.checkout-button {
+  padding: 10px 20px;
+  background-color: #337ab7;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: #23527c;
+}
