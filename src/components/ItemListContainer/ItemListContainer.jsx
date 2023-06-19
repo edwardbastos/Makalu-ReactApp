@@ -23,6 +23,14 @@ const ItemListContainer = () => {
     ? idCategoria.charAt(0).toUpperCase() + idCategoria.slice(1)
     : "Todos los productos";
 
+  useEffect(() => {
+    if (!idCategoria) {
+      getProductos()
+        .then((res) => setProductos(res))
+        .catch((error) => console.log(error));
+    }
+  }, [idCategoria]);
+
   return (
     <div className="item-list-container">
       <h3>Nuestros Productos</h3>

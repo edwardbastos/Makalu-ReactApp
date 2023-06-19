@@ -19,7 +19,7 @@ h3 {
     background-color: gray;
     border-bottom: 2px solid gray;
     margin-bottom: 30px;
-    margin-right: 50px;
+    margin-right: 30px;
     margin-top: 10px;
     align-self: center;
   }
@@ -47,6 +47,6 @@ h3 {
   }
 
 .container-productos {
-    margin-top: 20px;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

@@ -31,10 +31,10 @@ const NavBar = () => {
               <NavDropdown.Item as={NavLink} to={"/categoria/fotocopiadoras"}>
                 Fotocopiadoras
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to={"/categoria/2"}>
+              <NavDropdown.Item as={NavLink} to={"/categoria/impresoras"}>
                 Impresoras
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to={"/categoria/3"}>
+              <NavDropdown.Item as={NavLink} to={"/categoria/tonners"}>
                 Tonners
               </NavDropdown.Item>
             </NavDropdown>
