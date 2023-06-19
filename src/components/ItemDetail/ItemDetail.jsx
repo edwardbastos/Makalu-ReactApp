@@ -57,7 +57,7 @@ const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
                 />
               </Form.Group>
             </div>
-            <Button variant="primary" className="btnAgregarCarrito" onClick={handleAgregarCarrito}>
+            <Button className="btnAgregarCarrito" onClick={handleAgregarCarrito}>
               Agregar al carrito
             </Button>
           </Card.Body>

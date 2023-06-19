@@ -47,12 +47,12 @@ const CheckOut = () => {
   };
 
   return (
-    <div className="checkout-container container-md me-5 ms-5">
+    <div className="checkout-container container-xl ps-5 ms-5">
       <h2>Carrito de compras</h2>
       {cartItems.length === 0 ? (
         <p>No hay productos en el carrito</p>
       ) : (
-        <div>
+        <div className="checkout-container-child">
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -90,7 +90,7 @@ const CheckOut = () => {
               ))}
             </tbody>
           </Table>
-          <p>Total a pagar: {totalPrice}</p>
+          <h4 style={{fontWeight: "bold"}} >Total a pagar : {totalPrice}</h4>
           <div className="checkout-actions">
             <button
               variant="secondary"
@@ -100,8 +100,8 @@ const CheckOut = () => {
               Vaciar carrito
             </button>
             <button
-              variant="secondary"
               className="checkout-button"
+              id="btnCompra"
               onClick={finalizarCompra}
             >
               Finalizar compra
