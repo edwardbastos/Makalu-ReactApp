@@ -4,7 +4,8 @@ h3 {
     margin-right: 50px;
     margin-bottom: auto;
     align-self: center;
-  }
+    font-weight: bolder;
+}
   
   .item-list-container {
     display: flex;
@@ -12,16 +13,6 @@ h3 {
     padding-left: 100px;
     padding-right: 50px;
     margin-top: 20px;
-  }
-  
-  .line {
-    width: 350px;
-    background-color: gray;
-    border-bottom: 2px solid gray;
-    margin-bottom: 30px;
-    margin-right: 30px;
-    margin-top: 10px;
-    align-self: center;
   }
   
   .categorias-container {
@@ -36,7 +27,7 @@ h3 {
     font-weight: bold;
   }
   
-.line-2 {
+.line {
     width: 350px;
     background-color: #A9C526;
     border-bottom: 3px solid #A9C526;

@@ -75,9 +75,9 @@ const CheckOut = () => {
               {cartItems.map((item) => (
                 <tr key={item.id}>
                   <td>{item.nombre}</td>
-                  <td>{item.precio}</td>
+                  <td>$ {item.precio} USD</td>
                   <td>{item.cantidad}</td>
-                  <td>{item.precio * item.cantidad}</td>
+                  <td>$ {item.precio * item.cantidad} USD</td>
                   <td>
                     <Button
                       className="quantity-button"
@@ -98,7 +98,7 @@ const CheckOut = () => {
               ))}
             </tbody>
           </Table>
-          <h4 style={{fontWeight: "bold"}} >Total a pagar : {totalPrice}</h4>
+          <h4 style={{fontWeight: "bold"}} >Total a pagar : $ {totalPrice} USD</h4>
           <div className="checkout-actions">
             <button
               variant="secondary"

@@ -1,63 +1,71 @@
 .contenedorItem {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .productoImagenContainer {
-    overflow: hidden;
-    border-radius: 10px;
-    margin: 10px;
-  }
-  
-  .productoImagen {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .detalleProducto {
-    margin-top: auto;
-    margin-right: 250px; 
-  }
-  
-  .tituloProducto {
-    font-size: 20px;
-  }
-  
-  .precioProducto {
-    font-size: 16px;
-  }
-  
-  .inputCantidad {
-    margin-top: 10px; 
-  }
-  
-  .inputCantidad label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-  }
-  
-  .inputCantidad input[type="number"] {
-    width: 60px; 
-    padding: 5px;
-    font-size: 14px;
-  }
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
 
-  .btnAgregarCarrito {
-    margin-top: 40px; 
-    color: white;
-    background-color: #A9C526 !important;
-    border-color: #A9C526 !important;
-    border-radius: 10px;
-    
-  }
+.productoImagenContainer {
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 10px;
+}
 
-  .precioIdContainer {
-    margin-bottom: 10px; 
-  }
-  
+.productoImagen {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.tituloProducto {
+  font-size: 20px;
+}
+
+.precioProducto {
+  font-size: 16px;
+}
+
+.inputCantidad {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.inputCantidad label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.inputCantidad input[type="number"] {
+  width: 70px;
+  padding: 5px;
+  font-size: 14px;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.detalleProducto {
+  align-items: flex-start;
+}
+
+.btnAgregarCarrito {
+  color: white;
+  background-color: #A9C526 !important;
+  border-color: #A9C526 !important;
+  text-decoration: none;
+  margin-top: 15px;
+}
+
+.precioIdContainer {
+  margin-bottom: 10px;
+  margin-top: 35px;
+}
+
+.descripcionProducto {
+  margin-right: 55px;
+  font-weight: none !important;
+  border: none !important;
+}

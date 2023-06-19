@@ -2,16 +2,17 @@
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   width: 15rem;
-  padding: 0.5rem;
+  padding: 0.7rem !important;
   margin: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: box-shadow 0.3s ease; /* Nueva propiedad */
+  transition: box-shadow 0.3s ease;
 }
 
 .cardProducto:hover {
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Nueva propiedad */
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3),
+              10px 10px 15px rgba(0, 0, 0, 0.3);
 }
 
 .imgContainer {
@@ -22,6 +23,7 @@
 
 .imgProducto {
   width: 100%;
+  max-height: 100%;
   object-fit: cover;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -42,6 +44,10 @@ p {
   font-weight: bold;
 }
 
+.cardProducto p:nth-child(1) {
+  margin-top: 20px;
+}
+
 .cardProducto p:nth-child(2) {
   margin-top: 10px;
 }
@@ -53,9 +59,6 @@ span {
 .btnProducto {
   color: gray;
   font-weight: lighter;
-  /* background-color: white;
-    border: 2px solid gray; 
-    border-radius: 10px; */
   text-decoration: none;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
@@ -63,7 +66,6 @@ span {
 }
 
 .btnProducto:hover {
-  /* background-color: gray; */
   color: rgba(128, 128, 128, 0.774);
 }
 

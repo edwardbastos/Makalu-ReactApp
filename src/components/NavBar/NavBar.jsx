@@ -7,7 +7,7 @@ import "./NavBar.css";
 const NavBar = () => {
   const logoImg = process.env.PUBLIC_URL + "/assets/img/Makalu-logo.png";
   return (
-    <Navbar bg="light" expand="lg" className="shadow-lg">
+    <Navbar bg="light" expand="lg" className="narbar">
       <div className="container-fluid">
         <div className="d-block d-lg-none">
           <Link to={"/"}>
@@ -34,8 +34,8 @@ const NavBar = () => {
               <NavDropdown.Item as={NavLink} to={"/categoria/impresoras"}>
                 Impresoras
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to={"/categoria/tonners"}>
-                Tonners
+              <NavDropdown.Item as={NavLink} to={"/categoria/repuestos"}>
+                Repuestos
               </NavDropdown.Item>
             </NavDropdown>
 

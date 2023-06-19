@@ -21,7 +21,7 @@ const ItemListContainer = () => {
 
   const categoriaTitle = idCategoria
     ? idCategoria.charAt(0).toUpperCase() + idCategoria.slice(1)
-    : "Todos los productos";
+    : "Nuestros productos";
 
   useEffect(() => {
     if (!idCategoria) {
@@ -33,12 +33,10 @@ const ItemListContainer = () => {
 
   return (
     <div className="item-list-container">
-      <h3>Nuestros Productos</h3>
-      <div className="line"></div>
       <div className="categorias-container">
         <h3 className="categorias">{categoriaTitle}</h3>
       </div>
-      <div className="line-2"></div>
+      <div className="line"></div>
       <div className="container-productos">
         <ItemList productos={productos} />
       </div>
