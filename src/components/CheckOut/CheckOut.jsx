@@ -16,13 +16,20 @@ const CheckOut = () => {
 
   const removeItem = (itemId) => {
     const updatedItems = cartItems.map((item) => {
-      if (item.id === itemId && item.cantidad > 1) {
-        return { ...item, cantidad: item.cantidad - 1 };
+      if (item.id === itemId) {
+        if (item.cantidad > 1) {
+          return { ...item, cantidad: item.cantidad - 1 };
+        } else {
+          return null;
+        }
       }
       return item;
     });
-    setCartItems(updatedItems);
-  };
+  
+    const updatedItemsWithoutNull = updatedItems.filter((item) => item !== null);
+  
+    setCartItems(updatedItemsWithoutNull);
+  };  
 
   const increaseQuantity = (itemId) => {
     const updatedItems = cartItems.map((item) => {
@@ -49,6 +56,7 @@ const CheckOut = () => {
   return (
     <div className="checkout-container container-xl ps-5 ms-5">
       <h2>Carrito de compras</h2>
+      <div className="horizontal-line"></div>
       {cartItems.length === 0 ? (
         <p>No hay productos en el carrito</p>
       ) : (
