@@ -1,10 +1,18 @@
-import React, { useContext } from 'react';
-import { CheckOutContainer } from '../CheckOutContainer/CheckOutContainer';
-import { Table, Button } from 'react-bootstrap';
-import './CheckOut.css';
+import React, { useContext, useEffect, useState } from "react";
+import { CheckOutContainer } from "../CheckOutContainer/CheckOutContainer";
+import { Table, Button } from "react-bootstrap";
+import "./CheckOut.css";
+
+const increaseButtonImg = process.env.PUBLIC_URL + "/assets/img/mas.png";
+const decreaseButtonImg = process.env.PUBLIC_URL + "/assets/img/eliminar.png";
 
 const CheckOut = () => {
-  const { cartItems, setCartItems, totalQuantity, setTotalQuantity } = useContext(CheckOutContainer);
+  const { cartItems, setCartItems } = useContext(CheckOutContainer);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cartItems]);
 
   const removeItem = (itemId) => {
     const updatedItems = cartItems.map((item) => {
@@ -14,7 +22,6 @@ const CheckOut = () => {
       return item;
     });
     setCartItems(updatedItems);
-    updateTotalQuantity(updatedItems);
   };
 
   const increaseQuantity = (itemId) => {
@@ -25,12 +32,14 @@ const CheckOut = () => {
       return item;
     });
     setCartItems(updatedItems);
-    updateTotalQuantity(updatedItems);
   };
 
-  const updateTotalQuantity = (items) => {
-    const quantity = items.reduce((total, item) => total + item.cantidad, 0);
-    setTotalQuantity(quantity);
+  const calculateTotalPrice = () => {
+    const totalPrice = cartItems.reduce(
+      (total, item) => total + item.precio * item.cantidad,
+      0
+    );
+    setTotalPrice(totalPrice);
   };
 
   const finalizarCompra = () => {
@@ -38,7 +47,7 @@ const CheckOut = () => {
   };
 
   return (
-    <div className="checkout-container">
+    <div className="checkout-container container-md me-5 ms-5">
       <h2>Carrito de compras</h2>
       {cartItems.length === 0 ? (
         <p>No hay productos en el carrito</p>
@@ -62,25 +71,41 @@ const CheckOut = () => {
                   <td>{item.cantidad}</td>
                   <td>{item.precio * item.cantidad}</td>
                   <td>
-                    <Button variant="secondary" onClick={() => increaseQuantity(item.id)}>
-                      +
+                    <Button
+                      className="quantity-button"
+                      variant="white"
+                      onClick={() => removeItem(item.id)}
+                    >
+                      <img src={decreaseButtonImg} alt="Disminuir" />
                     </Button>
-                    <Button variant="secondary" onClick={() => removeItem(item.id)}>
-                      -
+                    <Button
+                      className="quantity-button"
+                      variant="white"
+                      onClick={() => increaseQuantity(item.id)}
+                    >
+                      <img src={increaseButtonImg} alt="Aumentar" />
                     </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
-          <p>Total: {totalQuantity}</p>
+          <p>Total a pagar: {totalPrice}</p>
           <div className="checkout-actions">
-            <Button variant="secondary" onClick={() => setCartItems([])}>
+            <button
+              variant="secondary"
+              className="checkout-button"
+              onClick={() => setCartItems([])}
+            >
               Vaciar carrito
-            </Button>
-            <Button variant="secondary" onClick={finalizarCompra}>
+            </button>
+            <button
+              variant="secondary"
+              className="checkout-button"
+              onClick={finalizarCompra}
+            >
               Finalizar compra
-            </Button>
+            </button>
           </div>
         </div>
       )}
