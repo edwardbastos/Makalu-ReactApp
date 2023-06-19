@@ -10,6 +10,9 @@ const CheckOut = () => {
   const { cartItems, setCartItems } = useContext(CheckOutContainer);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  // Agregar setTotalQuantity al destructurar el contexto
+  const { totalQuantity, setTotalQuantity } = useContext(CheckOutContainer);
+
   useEffect(() => {
     calculateTotalPrice();
   }, [cartItems]);
@@ -20,16 +23,19 @@ const CheckOut = () => {
         if (item.cantidad > 1) {
           return { ...item, cantidad: item.cantidad - 1 };
         } else {
-          return null;
+          return {};
         }
       }
       return item;
     });
-  
-    const updatedItemsWithoutNull = updatedItems.filter((item) => item !== null);
-  
-    setCartItems(updatedItemsWithoutNull);
-  };  
+
+    const updatedItemsWithoutEmpty = updatedItems.filter(
+      (item) => Object.keys(item).length !== 0
+    );
+
+    setCartItems(updatedItemsWithoutEmpty);
+    calculateTotalQuantity(updatedItemsWithoutEmpty);
+  };
 
   const increaseQuantity = (itemId) => {
     const updatedItems = cartItems.map((item) => {
@@ -39,6 +45,16 @@ const CheckOut = () => {
       return item;
     });
     setCartItems(updatedItems);
+    calculateTotalQuantity(updatedItems);
+  };
+  
+
+  const calculateTotalQuantity = (items) => {
+    const totalQuantity = items.reduce(
+      (total, item) => total + item.cantidad,
+      0
+    );
+    setTotalQuantity(totalQuantity);
   };
 
   const calculateTotalPrice = () => {
@@ -98,7 +114,9 @@ const CheckOut = () => {
               ))}
             </tbody>
           </Table>
-          <h4 style={{fontWeight: "bold"}} >Total a pagar : $ {totalPrice} USD</h4>
+          <h4 style={{ fontWeight: "bold" }}>
+            Total a pagar: $ {totalPrice} USD
+          </h4>
           <div className="checkout-actions">
             <button
               variant="secondary"

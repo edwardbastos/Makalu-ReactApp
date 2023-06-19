@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Button } from 'react-bootstrap';
-import { CartContext } from '../CartContext/CartContext';
+import { CheckOutContainer } from '../CheckOutContainer/CheckOutContainer';
 
 const ItemCount = () => {
   const [count, setCount] = useState(1);
-  const { setTotalQuantity } = useContext(CartContext);
+  const { setTotalQuantity } = useContext(CheckOutContainer);
 
   const handleIncrement = () => {
     setCount(count + 1);
