@@ -10,6 +10,7 @@ const ItemListContainer = () => {
   const { idCategoria } = useParams();
 
   useEffect(() => {
+    // Determinar qué función usar para obtener los productos en función de si hay una categoría seleccionada o no
     const funcionProductos = idCategoria
       ? getProductosPorCategoria
       : getProductos;
@@ -19,10 +20,12 @@ const ItemListContainer = () => {
       .catch((error) => console.log(error));
   }, [idCategoria]);
 
+  // Determinar el título de la categoría en función de si hay una categoría seleccionada o no
   const categoriaTitle = idCategoria
     ? idCategoria.charAt(0).toUpperCase() + idCategoria.slice(1)
     : "Nuestros productos";
 
+  // Obtener todos los productos si no hay una categoría seleccionada
   useEffect(() => {
     if (!idCategoria) {
       getProductos()

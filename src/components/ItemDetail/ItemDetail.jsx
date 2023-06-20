@@ -1,32 +1,30 @@
 import React, { useState, useContext } from "react";
-import "./ItemDetail.css";
-import { Card, Button, Form, Row, Col } from "react-bootstrap";
-import { CheckOutContainer } from "../CheckOutContainer/CheckOutContainer";
+import "./ItemDetail.css"; // Importar estilos CSS
+import { Card, Button, Form, Row, Col } from "react-bootstrap"; // Importar componentes de react-bootstrap
+import { CartContext } from "../CartContext/CartContext"; // Importar el contexto CartContext
 
 const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
-  const [cantidad, setCantidad] = useState(1);
-  const { cartItems, setCartItems, setTotalQuantity } = useContext(
-    CheckOutContainer
-  );
+  const [cantidad, setCantidad] = useState(1); // Estado para la cantidad del producto
+  const { cartItems, setCartItems, setTotalQuantity } = useContext(CartContext); // Obtener los elementos del carrito y las funciones para modificarlo del contexto CartContext
 
   const handleCantidadChange = (event) => {
-    setCantidad(Number(event.target.value));
+    setCantidad(Number(event.target.value)); // Actualizar la cantidad del producto según lo ingresado en el campo de formulario
   };
 
   const handleAgregarCarrito = () => {
-    const existingItem = cartItems.find((item) => item.id === id);
+    const existingItem = cartItems.find((item) => item.id === id); // Verificar si el producto ya está en el carrito
     if (existingItem) {
       const updatedItems = cartItems.map((item) => {
         if (item.id === id) {
-          return { ...item, cantidad: item.cantidad + cantidad };
+          return { ...item, cantidad: item.cantidad + cantidad }; // Actualizar la cantidad del producto existente en el carrito
         }
         return item;
       });
-      setCartItems(updatedItems);
+      setCartItems(updatedItems); // Actualizar los elementos del carrito con la cantidad actualizada
     } else {
-      setCartItems([...cartItems, { id, nombre, precio, cantidad }]);
+      setCartItems([...cartItems, { id, nombre, precio, cantidad }]); // Agregar un nuevo producto al carrito
     }
-    setTotalQuantity((prevTotalQuantity) => prevTotalQuantity + cantidad);
+    setTotalQuantity((prevTotalQuantity) => prevTotalQuantity + cantidad); // Actualizar la cantidad total del carrito
   };
 
   return (
@@ -46,7 +44,9 @@ const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
           <Card.Body className="detalleProducto">
             <Card.Title className="tituloProducto">{nombre}</Card.Title>
             <div className="precioIdContainer">
-              <Card.Text className="precioProducto">Precio: $ {precio} USD</Card.Text>
+              <Card.Text className="precioProducto">
+                Precio: $ {precio} USD
+              </Card.Text>
               <Card.Text>ID: {id}</Card.Text>
             </div>
             <Card.Text className="descripcionProducto">{descripcion}</Card.Text>
