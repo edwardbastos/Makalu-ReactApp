@@ -1,50 +1,33 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import ItemList from "../ItemList/ItemList";
-import { getProductos, getProductosPorCategoria } from "../../asyncmock";
-import { useParams } from "react-router-dom";
-import "./ItemListContainer.css";
+import { useState, useEffect } from 'react'
+import ItemList from '../ItemList/ItemList'
+import { useParams } from 'react-router-dom'
+import {db} from '../../services/config';
+import { collection, getDocs, where, query } from 'firebase/firestore';
 
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
-  const { idCategoria } = useParams();
+  const {idCategoria} = useParams();
 
-  useEffect(() => {
-    // Determinar qué función usar para obtener los productos en función de si hay una categoría seleccionada o no
-    const funcionProductos = idCategoria
-      ? getProductosPorCategoria
-      : getProductos;
+  useEffect( ()=> {
+    const misProductos = idCategoria ? query(collection(db, "productos"), where("idCat", "==", idCategoria)) : collection(db, "productos");
 
-    funcionProductos(idCategoria)
-      .then((res) => setProductos(res))
-      .catch((error) => console.log(error));
-  }, [idCategoria]);
-
-  // Determinar el título de la categoría en función de si hay una categoría seleccionada o no
-  const categoriaTitle = idCategoria
-    ? idCategoria.charAt(0).toUpperCase() + idCategoria.slice(1)
-    : "Nuestros productos";
-
-  // Obtener todos los productos si no hay una categoría seleccionada
-  useEffect(() => {
-    if (!idCategoria) {
-      getProductos()
-        .then((res) => setProductos(res))
-        .catch((error) => console.log(error));
-    }
-  }, [idCategoria]);
+    getDocs(misProductos)
+      .then(res => {
+        const nuevosProductos = res.docs.map(doc => {
+          const data = doc.data()
+          return {id:doc.id, ...data}
+        })
+        setProductos(nuevosProductos);
+      })
+      .catch(error => console.log(error))
+  },[idCategoria])
 
   return (
-    <div className="item-list-container">
-      <div className="categorias-container">
-        <h3 className="categorias">{categoriaTitle}</h3>
-      </div>
-      <div className="line"></div>
-      <div className="container-productos">
-        <ItemList productos={productos} />
-      </div>
-    </div>
-  );
-};
+    <>
+      <h2 style={{textAlign: "center"}}> Mis productos </h2>
+      <ItemList productos={productos} />
+    </>
+  )
+}
 
-export default ItemListContainer;
+export default ItemListContainer

@@ -1,8 +1,9 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
-import CartWidget from "../CartWidget/CartWidget";
-import "./NavBar.css";
+import CartWidget from "../CartWidget/CartWidget"
+import './NavBar.css'
+
 
 const NavBar = () => {
   const logoImg = process.env.PUBLIC_URL + "/assets/img/Makalu-logo.png";
@@ -62,9 +63,7 @@ const NavBar = () => {
               Contacto
             </Nav.Link>
             <li className="nav-item mx-5">
-              <Link to={"/carrito"}>
                 <CartWidget />
-              </Link>
             </li>
           </Nav>
         </Navbar.Collapse>

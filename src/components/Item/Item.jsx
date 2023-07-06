@@ -1,28 +1,17 @@
-import React from "react";
-import "./Item.css";
-import { Link } from "react-router-dom"; // Importar el componente Link para enlazar a la página de detalles
+import './Item.css'
+import { Link } from 'react-router-dom'
 
-const Item = ({ id, nombre, precio, img }) => {
+const Item = ({id, nombre, precio, img}) => {
   return (
-    <div className="cardProducto">
-      <div className="imgContainer">
-        <img className="imgProducto" src={img} alt={nombre} />
-      </div>
-      <div className="infoContainer">
-        <p>{nombre}</p>
-        <p>
-          Precio: <span>$ {precio} USD</span>
-        </p>
-        <p>
-          ID: <span>{id}</span>
-        </p>
-        <Link to={`/item/${id}`} className="btnProducto">
-          Ver Detalles
-        </Link>{" "}
-        {/* Enlazar al detalle del producto utilizando el id */}
-      </div>
+    <div className='cardProducto'>
+        <img className='imgProducto' src={img} alt={nombre} />
+        <h3>Nombre: {nombre} </h3>
+        <p>Precio: {precio} </p>
+        <p>ID: {id} </p>
+       
+        <Link className='miBtn' to={`/item/${id}`}> Ver Detalles</Link>
     </div>
-  );
-};
+  )
+}
 
-export default Item;
+export default Item

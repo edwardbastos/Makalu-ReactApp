@@ -1,32 +1,47 @@
-import React, { useState, useContext } from "react";
-import "./ItemDetail.css"; // Importar estilos CSS
-import { Card, Button, Form, Row, Col } from "react-bootstrap"; // Importar componentes de react-bootstrap
-import { CartContext } from "../CartContext/CartContext"; // Importar el contexto CartContext
+import './ItemDetail.css'
+import ItemCount from '../ItemCount/ItemCount'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
-  const [cantidad, setCantidad] = useState(1); // Estado para la cantidad del producto
-  const { cartItems, setCartItems, setTotalQuantity } = useContext(CartContext); // Obtener los elementos del carrito y las funciones para modificarlo del contexto CartContext
+//Importamos el CarritoContext: 
+import { CarritoContext } from '../../context/CarritoContext';
+//Importo el Hook useContext: 
+import { useContext } from 'react';
 
-  const handleCantidadChange = (event) => {
-    setCantidad(Number(event.target.value)); // Actualizar la cantidad del producto según lo ingresado en el campo de formulario
-  };
+const ItemDetail = ({ id, nombre, precio, img, stock, describ }) => {
+  //1) Creamos un estado con la cantidad de productos agregados: 
+  const [agregarCantidad, setAgregarCantidad] = useState(0);
 
-  const handleAgregarCarrito = () => {
-    const existingItem = cartItems.find((item) => item.id === id); // Verificar si el producto ya está en el carrito
-    if (existingItem) {
-      const updatedItems = cartItems.map((item) => {
-        if (item.id === id) {
-          return { ...item, cantidad: item.cantidad + cantidad }; // Actualizar la cantidad del producto existente en el carrito
-        }
-        return item;
-      });
-      setCartItems(updatedItems); // Actualizar los elementos del carrito con la cantidad actualizada
-    } else {
-      setCartItems([...cartItems, { id, nombre, precio, cantidad }]); // Agregar un nuevo producto al carrito
-    }
-    setTotalQuantity((prevTotalQuantity) => prevTotalQuantity + cantidad); // Actualizar la cantidad total del carrito
-  };
+  //useContext: 
+  const {agregarProducto} = useContext(CarritoContext);
 
+  //2) Creamos una función manejadora de la cantidad: 
+
+  const manejadorCantidad = (cantidad) => {
+    setAgregarCantidad(cantidad);
+    //console.log("Productos agregados:" + cantidad);
+
+    //Ahora acá creo un objeto con el item y la cantidad: 
+    const item = {id, nombre, precio, describ}; 
+    agregarProducto(item, cantidad);
+  }
+
+  return (
+    <div className='contenedorItem'>
+      <h2>Nombre: {nombre} </h2>
+      <h3>Precio: {precio} </h3>
+      <h3>ID: {id} </h3>
+      <p> Descripción: {describ}</p>
+      <img src={img} alt={nombre} />
+      {
+        //Acá empleamos la lógica del montaje y desmontaje de componentes: 
+      }
+      {
+        agregarCantidad > 0 ? (<Link className='miBtn' to="/cart"> Terminar Compra </Link>) : (<ItemCount inicial={1} stock={stock} funcionAgregar={manejadorCantidad} />)
+      }
+    </div>
+  )
+ /* 
   return (
     <Card className="contenedorItem">
       <Row>
@@ -78,7 +93,10 @@ const ItemDetail = ({ id, nombre, precio, img, descripcion }) => {
         </Col>
       </Row>
     </Card>
-  );
-};
+  );*/
 
-export default ItemDetail;
+
+
+}
+
+export default ItemDetail

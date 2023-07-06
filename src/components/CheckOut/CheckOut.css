@@ -1,89 +1,38 @@
+.formulario {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+input,
+textarea {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
 h2 {
- font-weight: bolder;
- font-family: Arial, Helvetica, sans-serif;
- line-height: 1.5;
-}
-h4 {
- font-weight: lighter;
- font-family: Arial, Helvetica, sans-serif;
- margin-top: 40px;
- margin-bottom: 70px;
+    text-align: center;
 }
 
-.checkout-container {
-  margin-top: 40px;
-  margin-bottom: 0px;
-}
+.orderId {
+    display: block;
+    margin: 4rem;
+    padding: 2rem;
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 5px;
 
-.horizontal-line {
-  width: 500px;
-  height: 3px;
-  background-color: #A9C526;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.checkout-container-child{
-  margin-top: 60px;
-}
-
-.checkout-actions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.checkout-button {
-  padding: 10px 20px;
-  background-color: white;
-  font-weight: bold;
-  color: secondary;
-  border: 2px solid;
-  border-radius: 10px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-#btnCompra {
-  color: #A9C526;
-  border-color: #A9C526;
-  margin-left: 20px;
-}
-
-.checkout-button:last-child {
-  margin-right: 0;
-}
-
-.checkout-actions #btnCompra:hover {
-  background-color: #A9C526 !important;
-  border: 2px solid;
-  color: white !important;
-}
-
-.quantity-button {
-  max-width: 35px;
-  max-height: 35px;
-  background-color: transparent;
-  border-color: transparent;
-  padding: 0;
-  box-shadow: none; 
-  margin-right: 10px; 
-}
-
-.quantity-button a {
-  outline: none; 
-}
-
-.quantity-button img {
-  max-width: 20px;
-  max-height: 20px;
-}
-
-.product-image {
-  max-width: 50px;
-  max-height: 50px;
-}
-
-.quantity-button:focus {
-  outline: none; 
 }

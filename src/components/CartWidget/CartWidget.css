@@ -1,24 +1,24 @@
 .imgCarrito {
-  width: 3rem;
-}
-
-.cart-container {
-  position: relative;
-}
-
-.cart-counter {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 20px; /* Ajusta el ancho y el alto del contador según tus necesidades */
-  height: 20px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 4px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
+    width: 3rem;
+  }
+  
+  .cart-container {
+    position: relative;
+  }
+  
+  .cart-counter {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px; /* Ajusta el ancho y el alto del contador según tus necesidades */
+    height: 20px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 4px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }

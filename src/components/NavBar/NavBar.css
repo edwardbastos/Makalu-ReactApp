@@ -1,18 +1,20 @@
 .logo-header {
-  width: 25rem;
-}
+    width: 25rem;
+  }
+  
+  .nav-link-bold {
+    font-weight: bold;
+    color: #6d8192;
+  }
+  
+  .navbar {
+    box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.099),
+      /* Sombra inferior */ 0px -12px 12px rgba(0, 0, 0, 0.099),
+      /* Sombra superior */ 12px 0px 12px rgba(0, 0, 0, 0.099),
+      /* Sombra derecha */ -12px 0px 12px rgba(0, 0, 0, 0.099); /* Sombra izquierda */
+  
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  
 
-.nav-link-bold {
-  font-weight: bold;
-  color: #6d8192;
-}
-
-.navbar {
-  box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.099),
-    /* Sombra inferior */ 0px -12px 12px rgba(0, 0, 0, 0.099),
-    /* Sombra superior */ 12px 0px 12px rgba(0, 0, 0, 0.099),
-    /* Sombra derecha */ -12px 0px 12px rgba(0, 0, 0, 0.099); /* Sombra izquierda */
-
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-}

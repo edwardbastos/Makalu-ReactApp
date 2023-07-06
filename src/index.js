@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
-import { CartProvider } from './components/CartContext/CartContext.jsx';
+import { CarritoProvider } from './context/CarritoContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode>
-  <CartProvider>
+  <CarritoProvider>
     <App />
-  </CartProvider>,
+  </CarritoProvider>
   //</React.StrictMode>
 );
 

@@ -1,44 +1,31 @@
-import React, { useState, useContext } from "react";
-import { Button } from "react-bootstrap";
-import { CheckOutContainer } from "../CartContext/CartContext"; // Importar el contexto CheckOutContainer
+import './ItemCount.css'
+import { useState } from 'react'
 
-const ItemCount = () => {
-  const [count, setCount] = useState(1); // Estado para la cantidad de productos
-  const { setTotalQuantity } = useContext(CheckOutContainer); // Obtener la función para establecer la cantidad total desde el contexto CheckOutContainer
+const ItemCount = ({inicial, stock, funcionAgregar}) => {
+    const [contador, setContador] = useState(inicial);
 
-  const handleIncrement = () => {
-    setCount(count + 1); // Incrementar la cantidad de productos
-  };
-
-  const handleDecrement = () => {
-    if (count > 1) {
-      setCount(count - 1); // Decrementar la cantidad de productos si es mayor que 1
+    const incrementar = () => {
+        if(contador < stock) {
+            setContador(contador + 1);
+        }
     }
-  };
 
-  const handleAddToCart = () => {
-    setTotalQuantity(count); // Actualizar la cantidad total en el contexto del carrito
-  };
+    const decrementar = () => {
+        if(contador > inicial){
+            setContador(contador - 1);
+        }
+    }
 
   return (
-    <div>
-      <div>
-        <Button variant="secondary" onClick={handleDecrement}>
-          -
-        </Button>{" "}
-        {/* Botón para decrementar la cantidad */}
-        <span>{count}</span> {/* Mostrar la cantidad actual */}
-        <Button variant="secondary" onClick={handleIncrement}>
-          +
-        </Button>{" "}
-        {/* Botón para incrementar la cantidad */}
-      </div>
-      <Button variant="primary" onClick={handleAddToCart}>
-        Agregar al carrito
-      </Button>{" "}
-      {/* Botón para agregar al carrito */}
-    </div>
-  );
-};
+    <>
+        <div>
+            <button className='miBtn' onClick={ decrementar }> - </button>
+            <strong> {contador} </strong>
+            <button className='miBtn' onClick={ incrementar }> + </button>
+        </div>
+        <button className='miBtn' onClick={() => funcionAgregar(contador)}> Agregar al Carrito </button>
+    </>
+  )
+}
 
-export default ItemCount;
+export default ItemCount

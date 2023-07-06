@@ -1,149 +1,115 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CartContext } from "../CartContext/CartContext"; // Importar el contexto CartContext
-import { Table, Button } from "react-bootstrap"; // Importar componentes de react-bootstrap
-import "./CheckOut.css"; // Importar estilos CSS
+import { useState, useContext } from "react"
+import { CarritoContext } from "../../context/CarritoContext"
+import { db } from "../../services/config"
+import { collection, addDoc } from "firebase/firestore"
+import './CheckOut.css';
 
-// Definir las rutas de las imágenes para los botones de incremento y decremento
-const increaseButtonImg = process.env.PUBLIC_URL + "/assets/img/mas.png";
-const decreaseButtonImg = process.env.PUBLIC_URL + "/assets/img/eliminar.png";
+const Checkout = () => {
+    const { carrito, vaciarCarrito } = useContext(CarritoContext);
+    const [nombre, setNombre] = useState("");
+    const [apellido, setApellido] = useState("");
+    const [telefono, setTelefono] = useState("");
+    const [email, setEmail] = useState("");
+    const [emailConfimarcion, setEmailConfirmacion] = useState("");
+    const [error, setError] = useState("");
+    const [ordenId, setOrdenId] = useState("");
 
-const CheckOut = () => {
-  const { cartItems, setCartItems, setTotalQuantity } = useContext(CartContext); // Obtener el estado y las funciones del contexto CartContext
-  const [totalPrice, setTotalPrice] = useState(0); // Estado local para almacenar el precio total
 
-  useEffect(() => {
-    calculateTotalPrice(); // Calcular el precio total al cargar el componente y cuando cambia el carrito de compras
-  }, [cartItems]);
+    const manejadorSubmit = (event) => {
+        event.preventDefault();
 
-  const removeItem = (itemId) => {
-    // Función para eliminar un elemento del carrito
-    const updatedItems = cartItems.map((item) => {
-      if (item.id === itemId) {
-        if (item.cantidad > 1) {
-          return { ...item, cantidad: item.cantidad - 1 }; // Reducir la cantidad en 1 si es mayor que 1
-        } else {
-          return {}; // Si la cantidad es 1, devolver un objeto vacío para eliminar el elemento
+        //Validar que los campos esten completos: 
+        if (!nombre || !apellido || !telefono || !email || !emailConfimarcion) {
+            setError("Por favor complete los campos");
+            return;
         }
-      }
-      return item;
-    });
 
-    const updatedItemsWithoutEmpty = updatedItems.filter(
-      (item) => Object.keys(item).length !== 0
-    ); // Filtrar los elementos vacíos eliminados del carrito
+        //Validamos que los campos del email coincidan
+        if (email !== emailConfimarcion) {
+            setError("Los campos del email no coinciden");
+            return;
+        }
 
-    setCartItems(updatedItemsWithoutEmpty); // Actualizar el estado del carrito con los elementos actualizados
-    calculateTotalQuantity(updatedItemsWithoutEmpty); // Calcular la cantidad total de productos en el carrito
-  };
+        //Creamos el objeto de la orden: 
 
-  const increaseQuantity = (itemId) => {
-    // Función para aumentar la cantidad de un elemento en el carrito
-    const updatedItems = cartItems.map((item) => {
-      if (item.id === itemId) {
-        return { ...item, cantidad: item.cantidad + 1 }; // Aumentar la cantidad en 1
-      }
-      return item;
-    });
-    setCartItems(updatedItems); // Actualizar el estado del carrito con los elementos actualizados
-    calculateTotalQuantity(updatedItems); // Calcular la cantidad total de productos en el carrito
-  };
+        const orden = {
+            items: carrito.map(producto => ({
+                id: producto.item.id,
+                nombre: producto.item.nombre,
+                cantidad: producto.cantidad,
+            })),
+            total: carrito.reduce((total, producto) => total + producto.item.precio * producto.cantidad, 0),
+            nombre,
+            apellido,
+            telefono,
+            email
+        };
 
-  const calculateTotalQuantity = (items) => {
-    // Función para calcular la cantidad total de productos en el carrito
-    const totalQuantity = items.reduce(
-      (total, item) => total + item.cantidad,
-      0
-    );
-    setTotalQuantity(totalQuantity); // Actualizar la cantidad total en el estado compartido
-  };
+        //Guardamos la orden en la base de datos: 
+        addDoc(collection(db, "ordenes"), orden)
+            .then((docRef) => {
+                setOrdenId(docRef.id);
+                vaciarCarrito();
+            })
+            .catch((error) => {
+                console.log("Error al crear la orden", error);
+                setError("Se produjo un error al crear la orden, vuelva más tarde");
+            })
 
-  const calculateTotalPrice = () => {
-    // Función para calcular el precio total de los productos en el carrito
-    const totalPrice = cartItems.reduce(
-      (total, item) => total + item.precio * item.cantidad,
-      0
-    );
-    setTotalPrice(totalPrice); // Actualizar el precio total en el estado local
-  };
+    }
+    return (
+        <div>
+            <h2>Checkout</h2>
+            <form onSubmit={manejadorSubmit} className="formulario">
 
-  const finalizarCompra = () => {
-    // Lógica para finalizar la compra
-  };
+                {carrito.map(producto => (
+                    <div key={producto.item.id}>
+                        <p> {producto.item.nombre} x {producto.cantidad} </p>
+                        <p>Precio: $ {producto.item.precio} </p>
+                        <hr />
+                    </div>
+                ))}
+                <hr />
 
-  const vaciarCarrito = () => {
-    // Función para vaciar el carrito de compras
-    setCartItems([]); // Vaciar el carrito actualizando el estado con un array vacío
-    setTotalQuantity(0); // Establecer la cantidad total en 0
-  };
+                <div className="form-group">
+                    <label htmlFor=""> Nombre </label>
+                    <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                </div>
 
-  return (
-    <div className="checkout-container container-xl ps-5 ms-5">
-      <h2>Carrito de compras</h2>
-      <div className="horizontal-line"></div>
-      {cartItems.length === 0 ? (
-        <p>No hay productos en el carrito</p>
-      ) : (
-        <div className="checkout-container-child">
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Precio Unitario</th>
-                <th>Cantidad</th>
-                <th>Precio Total</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.nombre}</td>
-                  <td>$ {item.precio} USD</td>
-                  <td>{item.cantidad}</td>
-                  <td>$ {item.precio * item.cantidad} USD</td>
-                  <td>
-                    <Button
-                      className="quantity-button"
-                      variant="white"
-                      onClick={() => removeItem(item.id)}
-                    >
-                      <img src={decreaseButtonImg} alt="Disminuir" />
-                    </Button>
-                    <Button
-                      className="quantity-button"
-                      variant="white"
-                      onClick={() => increaseQuantity(item.id)}
-                    >
-                      <img src={increaseButtonImg} alt="Aumentar" />
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <h4 style={{ fontWeight: "bold" }}>
-            Total a pagar: $ {totalPrice} USD
-          </h4>
-          <div className="checkout-actions">
-            <button
-              variant="secondary"
-              className="checkout-button"
-              onClick={vaciarCarrito}
-            >
-              Vaciar carrito
-            </button>
-            <button
-              className="checkout-button"
-              id="btnCompra"
-              onClick={finalizarCompra}
-            >
-              Finalizar compra
-            </button>
-          </div>
+                <div className="form-group">
+                    <label htmlFor=""> Apellido </label>
+                    <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor=""> Telefono</label>
+                    <input type="text" value={telefono} onChange={(e) => setTelefono(e.target.value)} />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor=""> Email </label>
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor=""> Email Confirmación </label>
+                    <input type="email" value={emailConfimarcion} onChange={(e) => setEmailConfirmacion(e.target.value)} />
+                </div>
+
+                {
+                    error && <p style={{ color: "red" }}> {error} </p>
+                }
+
+                <button className="miBtn" type="submit"> Finalizar Orden </button>
+
+                {
+                    ordenId && (
+                        <strong className="orderId">¡Gracias por tu compra! Tu número de orden es: {ordenId} </strong>
+                    )
+                }
+            </form>
         </div>
-      )}
-    </div>
-  );
-};
+    )
+}
 
-export default CheckOut;
+export default Checkout
