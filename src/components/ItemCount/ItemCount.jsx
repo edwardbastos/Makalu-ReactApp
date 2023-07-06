@@ -20,15 +20,15 @@ const ItemCount = ({ inicial, stock, funcionAgregar }) => {
     const [inputCantidad, setInputCantidad] = useState(contador);
 
     // Actualizar la cantidad del producto según lo ingresado en el campo de formulario
-    
+
     const CambiarCantidad = (event) => {
-        const cantidad = Number(event.target.value);            
+        const cantidad = Number(event.target.value);
         setInputCantidad(cantidad);
         if (cantidad >= inicial && cantidad <= stock) {
-          setContador(cantidad);
+            setContador(cantidad);
         }
-      };
-      
+    };    
+
     return (
         <>
             {/* <div>
@@ -43,7 +43,7 @@ const ItemCount = ({ inicial, stock, funcionAgregar }) => {
                     <Form.Label>Cantidad:</Form.Label>
                     <Form.Control
                         type="number"
-                        value={stock}
+                        value={inputCantidad}
                         min="1"
                         onChange={CambiarCantidad}
                     />
